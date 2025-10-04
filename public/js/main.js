@@ -97,6 +97,22 @@ function displayCongratulations() {
   textSize(24);
   fill(255);
   text(`You completed the ${timesTable}x table!`, width * 0.75, height / 2 + 60);
+
+  // Retry button
+  const buttonWidth = 200;
+  const buttonHeight = 60;
+  const buttonX = width * 0.75 - buttonWidth / 2;
+  const buttonY = height / 2 + 120;
+
+  fill(0, 200, 0);
+  stroke(255);
+  strokeWeight(2);
+  rect(buttonX, buttonY, buttonWidth, buttonHeight, 10);
+
+  fill(255);
+  noStroke();
+  textSize(24);
+  text('Try Again', width * 0.75, buttonY + buttonHeight / 2);
 }
 
 function displayNumberGrid() {
@@ -144,6 +160,20 @@ function windowResized() {
 }
 
 function mousePressed() {
+  // Check for retry button click when showing congratulations
+  if (guesses.correct.length >= 10) {
+    const buttonWidth = 200;
+    const buttonHeight = 60;
+    const buttonX = width * 0.75 - buttonWidth / 2;
+    const buttonY = height / 2 + 120;
+
+    if (mouseX >= buttonX && mouseX <= buttonX + buttonWidth &&
+        mouseY >= buttonY && mouseY <= buttonY + buttonHeight) {
+      location.reload();
+      return;
+    }
+  }
+
   const gridStartX = width / 2;
   const gridWidth = width / 2;
   const gridHeight = height;
