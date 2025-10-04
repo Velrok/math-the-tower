@@ -20,7 +20,7 @@ let timesTable = null;
 async function setup() {
   timesTable = floor(random(2, 11))
   createCanvas(windowWidth, windowHeight);
-  towerImg = await loadImage('images/tower2.JPG');
+  towerImg = await loadImage(`images/tower${timesTable}.JPG`);
   enderman.img = await loadImage('images/Enderman.webp');
   endermanScreeming.img = await loadImage('images/Enderman_Screaming.gif');
 }
@@ -41,7 +41,25 @@ function draw() {
 
 function displayTower() {
   if (towerImg) {
-    image(towerImg, 0, 0, width / 2, height);
+    // Scale to fill height while maintaining aspect ratio
+    const scaledHeight = height;
+    const scaledWidth = towerImg.width * (height / towerImg.height);
+
+    // Center horizontally within left half
+    const leftHalfWidth = width / 2;
+    const x = (leftHalfWidth - scaledWidth) / 2;
+
+    // Clip to left half
+    push();
+    drawingContext.save();
+    drawingContext.beginPath();
+    drawingContext.rect(0, 0, leftHalfWidth, height);
+    drawingContext.clip();
+
+    image(towerImg, x, 0, scaledWidth, scaledHeight);
+
+    drawingContext.restore();
+    pop();
   }
 }
 
