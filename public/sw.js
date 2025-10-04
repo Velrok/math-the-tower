@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mathtower-v1';
+const CACHE_NAME = 'mathtower-v2';
 const urlsToCache = [
   '/',
   '/index.html',
